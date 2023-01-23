@@ -92,3 +92,57 @@ docker run -it test:pandas
 ## Ingesting NY Taxi Data to Postgres
 [More info here](https://www.youtube.com/watch?v=2JM-ziJt0WI&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
 
+### First at all, we need a docker-compose file in order to run Postgres.
+```
+services:
+  pgdatabase:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=ny_taxi
+    volumes:
+      - "./ny_taxi_postgres_data:/var/lib/postgresql/data:rw"
+    ports:
+      - "5432:5432"
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - "8080:80"
+```
+We have created a folder called `ny_taxi_postgres_data`, we'll map this folder with this other one `/var/lib/postgresql/data:rw` in the dockerfile.
+
+### Run it
+```sh
+docker-compose up
+```
+If we had used dockerfile, it would have been like this:
+```docker
+docker run -it `
+-e POSTGRES_USER="root" `
+-e POSTGRES_PASSWORD="root" `
+-e POSTGRES_DB="ny_taxi" `
+-v C:\Users\User\Desktop\Github\data-engineering-camp\week_1_basics_n_setup\ny_taxi_postgres_data:/var/lib/postgresql/data `
+-p 5432:5432 ` postgres:13
+```
+where:
+- `-e` is for the environment variables
+- `-v` is for volume
+- `-p` is for port
+
+### Connect to the database
+We can use `pgcli` to connect to our database.
+```sh
+pgcli -h localhost -p 5432 -U root -d ny_taxi
+```
+Don't forget to install pgcli before, use:
+```sh
+pip install pgcli
+```
+The first time you might type the password: root.
+
+### Create a table
+```sql
