@@ -144,5 +144,90 @@ pip install pgcli
 ```
 The first time you might type the password: root.
 
-### Create a table
+## Create a jupyter notebook in order to work on it.
+### Enviroment
+I'll create a virtual enviroment for this camp using anaconda
+```sh
+conda create -n data_engineering_camp python=3.9
+```
+Then I'll activate it
+```sh
+conda activate data_engineering_camp
+```
+### Install the libraries
+```sh
+pip install -r requirements.txt
+```
+### Download NYC Trip data from [here](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
+We have got a parquet file, because of this we need a way to read it in pandas.
+```sh
+pip install pyarrow
+```
+And read it using:
+```python
+import pandas as pd
+
+df = pd.read_parquet("yellow_tripdata_2020-01.parquet", engine="pyarrow")
+```
+
+### Working on this [file](notebook.ipynb)
+
+After insert the data to the DB, we can use this command to see how many data do we have:
 ```sql
+SELECT COUNT(*) FROM yellow_taxi_data;
+```
+
+## Connecting pgAdmin and Postgres
+Watch more [here](https://www.youtube.com/watch?v=hCAIVe9N0ow&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
+
+Using docker to run pgadmin in docker:
+```docker
+docker run -it `
+-e PGADMIN_DEFAULT_EMAIL="admin@admin.com" `
+-e PGADMIN_DEFAULT_PASSWORD="root" `
+-p 8080:80 `
+dpage/pgadmin4
+```
+
+Open the browser and access it.
+```
+http://localhost:8080
+```
+## Connect these containers using networks
+### Create a network
+```sh
+docker network create pg-network
+```
+### Run the containers
+```docker
+docker run -it `
+-e POSTGRES_USER="root" `
+-e POSTGRES_PASSWORD="root" `
+-e POSTGRES_DB="ny_taxi" `
+-v C:\Users\User\Desktop\Github\data-engineering-camp\week_1_basics_n_setup\ny_taxi_postgres_data:/var/lib/postgresql/data `
+-p 5432:5432 --network=pg-network `
+--name=pg-database ` postgres:13
+```
+
+```docker
+docker run -it `
+-e PGADMIN_DEFAULT_EMAIL="admin@admin.com" `
+-e PGADMIN_DEFAULT_PASSWORD="root" `
+-p 8080:80 `
+--network=pg-network `
+--name=pgadmin-2 `
+dpage/pgadmin4
+```
+
+## Connect pgAdmin to Postgres
+- Open pgAdmin
+- Create a new server
+- Follow this image
+![IMAGE](./images/server-postgres-pgadmin.PNG)
+## Dockerizing the ingestion script
+Watch more [here](https://www.youtube.com/watch?v=B1WwATwf-vY&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=8)
+
+### Convert jupyter notebook into a python script
+```sh
+jupyter nbconvert --to script notebook.ipynb
+```
