@@ -231,3 +231,157 @@ Watch more [here](https://www.youtube.com/watch?v=B1WwATwf-vY&list=PL3MmuxUbc_hJ
 ```sh
 jupyter nbconvert --to script notebook.ipynb
 ```
+Before testing the script, delete the table:
+```sql
+DROP TABLE yellow_taxi_data;
+```
+Then run the python script as follows
+```sh
+python upload-data.py `
+--host=localhost `
+--port=5432 `
+--user=root `
+--password=root `
+--db=ny_taxi `
+--table_name=yellow_taxi_trip `
+--url="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2021-01.parquet"
+```
+## Dockerizing ingestion Script
+### Create a Dockerfile
+```docker
+FROM python:3.9.16
+RUN apt-get install wget
+RUN pip install pandas sqlalchemy psycopg2 pyarrow
+
+WORKDIR /app
+COPY upload-data.py /app
+
+ENTRYPOINT ["python", "upload-data.py"]
+```
+
+### Build the image
+```sh
+docker build -t upload-data:v001 .
+```
+### Run the image
+```sh
+docker run -it `
+--network=pg-network `
+upload-data:v001 `
+--host=pg-database `
+--port=5432 `
+--user=root `
+--password=root `
+--db=ny_taxi `
+--table_name=yellow_taxi_trip `
+--url="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2021-01.parquet"
+
+```
+
+## Running Postgres and pgAdmin with Docker-Compose
+Watch more [here](https://www.youtube.com/watch?v=hKI6PkPhpa0&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
+
+### Create a docker-compose.yml file
+```docker
+services:
+  pgdatabase:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=ny_taxi
+    volumes:
+      - "./ny_taxi_postgres_data:/var/lib/postgresql/data:rw"
+    ports:
+      - "5432:5432"
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - "8080:80"
+```
+
+### Run the containers
+```sh
+docker-compose up 
+```
+
+Now go to your browser and open `https://localhost:8080` and create a new server.
+
+### Stop docker-compose
+```sh
+docker-compose down
+```
+### Running docker compose in detached mode
+```sh
+docker-compose up -d
+```
+
+## SQL Refreshing
+Watch more [here](https://www.youtube.com/watch?v=QEcps_iskgg&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=10)
+
+
+### Joining yellow taxi data with the zones lookup table (implicit inner join)
+```sql
+SELECT 
+*
+FROM
+yellow_taxi_data t,
+zones zpu,
+zones zdo
+WHERE 
+t."PULocationID" = zpu."LocationID" AND 
+t."DOLocationID" = zdo."LocationID"
+LIMIT 100
+```
+
+Select only a few things
+```sql
+SELECT 
+*
+FROM
+yellow_taxi_data t,
+zones zpu,
+zones zdo
+WHERE 
+t."PULocationID" = zpu."LocationID" AND 
+t."DOLocationID" = zdo."LocationID"
+LIMIT 100
+```
+### Using an explicit inner join
+```sql
+SELECT
+*
+FROM
+yellow_taxi_data t
+INNER JOIN zones zpu ON t."PULocationID" = zpu."LocationID"
+INNER JOIN zones zdo ON t."DOLocationID" = zdo."LocationID"
+LIMIT 100
+```
+### Checking for records with Location ID not in the table zones
+```sql
+SELECT
+*
+FROM
+yellow_taxi_data t
+LEFT JOIN zones zpu ON t."PULocationID" = zpu."LocationID"
+LEFT JOIN zones zdo ON t."DOLocationID" = zdo."LocationID"
+WHERE zpu."LocationID" IS NULL OR zdo."LocationID" IS NULL
+LIMIT 100
+```
+
+### Using group by to calculate number of trips per day
+
+```sql
+SELECT
+date_trunc('day', t."tpep_pickup_datetime") AS "day",
+count(*) AS "number_of_trips"
+FROM
+yellow_taxi_data t
+GROUP BY 1
+ORDER BY 1;
+```
+
+
