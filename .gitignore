@@ -1,2 +1,14 @@
 /week_1_basics_n_setup/ny_taxi_postgres_data
 /week_1_basics_n_setup/data 
+*.json
+.terraform*
+*.tfstate*
+*.tfstate.backup
+*.tfvars
+.terraformrc
+crash.log
+*.tfplan
+*.tfplan.*
+.terragrunt-cache
+.terragrunt-cache-*
+set*
