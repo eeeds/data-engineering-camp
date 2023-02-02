@@ -12,3 +12,5 @@ crash.log
 .terragrunt-cache
 .terragrunt-cache-*
 set*
+*.csv
+*.parquet

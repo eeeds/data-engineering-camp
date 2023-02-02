@@ -36,6 +36,23 @@ Also, if you find the commands too small to view in Kalise's videos, here's the 
 
 :movie_camera: [Video](https://www.youtube.com/watch?v=cdtN6dhp708&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
 
+### Install this libraries
+```
+pandas==1.5.2
+prefect==2.7.7
+prefect-sqlalchemy==0.2.2
+prefect-gcp[cloud_storage]==0.2.4
+protobuf==4.21.11
+pyarrow==10.0.1
+pandas-gbq==0.18.1
+psycopg2-binary==2.9.5
+sqlalchemy==1.4.46
+```
+I'll put them inside a file and then run:
+```
+pip install -r requirements.txt
+```
+Explanation of the video [here](https://github.com/discdiver/prefect-zoomcamp/tree/main/flows/01_start)
 ### 3. ETL with GCP & Prefect
 
 * Flow 1: Putting data to Google Cloud Storage 
