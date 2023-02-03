@@ -4,5 +4,5 @@ COPY docker-requirements.txt .
 
 RUN pip install -r docker-requirements.txt --trusted-host pypi.python.org --no-cache-dir
 
-COPY 03_deployment/parameterized_flow.py /opt/prefect/flows
-COPY 03_deployment/data/yellow /opt/prefect/data
+COPY 03_deployment/flows /opt/prefect/flows/
+COPY data /opt/prefect/data

@@ -71,4 +71,14 @@ Working on [dockerfile](../Dockerfile)
 ## Go to blocks and select a docker-container-block
 - Select a name for your block
 - Put your image name in `Image` option
-- 
+## Create a python file with the deployment settings
+[python code](docker_deployment.py)
+## Run it
+`python docker_deployment.py`
+
+You might see a new deployment on prefect.
+
+## Set PREFECT_API_URL
+`prefect config set PREFECT_API_URL="http://127.0.0.1:4200/api"`
+## Start an agent
+`prefect agent start --work-queue "default" `

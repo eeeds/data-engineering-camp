@@ -16,3 +16,4 @@ set*
 *.parquet
 *.prefectignore
 *cp*
+__pycache__
