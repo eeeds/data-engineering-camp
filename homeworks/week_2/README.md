@@ -69,6 +69,20 @@ How many rows were processed by the script?
 - 88,605
 - 190,225
 
+Python command in order to build this deployment:
+```python
+prefect deployment build ./homeworks/week_2/etl_web_to_gcs.py:etl_web_to_gsc `
+-n "Github Storage Flow" `
+-sb github/github-hw `
+-o .homeworks/week_2/github_deployment.yaml `
+--apply
+```
+where: 
+- `./homeworks/week_2/etl_web_to_gcs.py:etl_web_to_gsc` is the path of the flow.
+- `Github Storage Flow` is the name of the deployment
+- `github/github-hw` is the block name
+- `.homeworks/week_2/github_deployment.yaml` is the path of the output yaml file.
+
 
 
 ## Question 5. Email or Slack notifications

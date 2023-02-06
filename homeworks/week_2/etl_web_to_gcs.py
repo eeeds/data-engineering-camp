@@ -2,6 +2,7 @@ from pathlib import Path
 import pandas as pd 
 from prefect import flow, task 
 from prefect_gcp.cloud_storage import GcsBucket
+from prefect.filesystems import GitHub
 from random import randint
 
 
@@ -39,7 +40,7 @@ def write_gcs(path: Path) -> None:
     gcs_block.upload_from_path(from_path=path, to_path=path)
     return  
 
-@flow()
+@flow(log_prints = True)
 def etl_web_to_gsc() -> None:
     """
     The main ETL Function
@@ -54,6 +55,7 @@ def etl_web_to_gsc() -> None:
 
     df = fetch(dataset_url)
     df_clean = clean(df)
+    print('Rows that contains this file', df.shape[0])
     path = write_local(df_clean, color, dataset_file)
     write_gcs(path)
 

@@ -1,0 +1,45 @@
+###
+### A complete description of a Prefect Deployment for flow 'etl-web-to-gsc'
+###
+name: Github Storage Flow
+description: The main ETL Function
+version: bd79cddc77d40dff07ac84f60e8d8a68
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+tags: []
+parameters: {}
+schedule: null
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: etl-web-to-gsc
+manifest_path: null
+storage:
+  repository: https://github.com/eeeds/data-engineering-camp
+  reference: null
+  access_token: null
+  _block_document_id: 1666bbb8-2f00-4325-afba-cf83ee4b5ab0
+  _block_document_name: github-hw
+  _is_anonymous: false
+  block_type_slug: github
+  _block_type_slug: github
+path: ''
+entrypoint: homeworks\week_2\etl_web_to_gcs.py:etl_web_to_gsc
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties: {}
+  required: null
+  definitions: null
