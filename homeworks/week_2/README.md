@@ -140,7 +140,7 @@ Prefect Secret blocks provide secure, encrypted storage in the database and obfu
 - 8
 - 10
 
-
+## Answer: 8
 ## Submitting the solutions
 
 * Form for submitting: https://forms.gle/PY8mBEGXJ1RvmTM97
