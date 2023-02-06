@@ -83,6 +83,7 @@ where:
 - `github/github-hw` is the block name
 - `.homeworks/week_2/github_deployment.yaml` is the path of the output yaml file.
 
+Then you have to start an agent in order tu run your deployment `prefect agent start --work-queue "default" `
 
 
 ## Question 5. Email or Slack notifications
