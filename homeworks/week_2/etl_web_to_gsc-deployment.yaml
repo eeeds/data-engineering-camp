@@ -1,0 +1,40 @@
+###
+### A complete description of a Prefect Deployment for flow 'etl-web-to-gsc'
+###
+name: green_to_gcs
+description: The main ETL Function
+version: 1346dda2ca2231308c813d48b8d1d3c8
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+tags: []
+parameters: {}
+schedule:
+  cron: 0 5 1 * *
+  timezone: null
+  day_or: true
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: etl-web-to-gsc
+manifest_path: null
+storage: null
+path: C:\Users\User\Desktop\Github\data-engineering-camp\homeworks\week_2
+entrypoint: etl_web_to_gcs.py:etl_web_to_gsc
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties: {}
+  required: null
+  definitions: null

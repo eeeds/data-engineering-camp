@@ -41,7 +41,7 @@ def write_local(df: pd.DataFrame, color: str, dataset_file: str) -> Path:
 @task()
 def write_gcs(path: Path) -> None:
     """Upload local parquet file to GCS"""
-    gcs_block = GcsBucket.load("zoom-gcs")
+    gcs_block = GcsBucket.load("zoom-gcs-2")
     gcs_block.upload_from_path(from_path=path, to_path=path)
     return
 
@@ -68,6 +68,6 @@ def etl_parent_flow(
 
 if __name__ == "__main__":
     color = "yellow"
-    months = [1, 2, 3]
-    year = 2021
+    months = [3]
+    year = 2019
     etl_parent_flow(months, year, color)
