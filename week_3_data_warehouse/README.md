@@ -16,10 +16,27 @@
 ### Best practices
 
 - [BigQuery Best Practices](https://youtu.be/k81mLJVX08w)  
+### Cost Reduction
+> Avoid Select *
+> Prices your queries before you running them
+> Use clustered or partitioned tables
+> Use streaming inserts with caution
+> Materialize query results in stages
+### Query performance
+> Filter on partitioned columns
+> Denormalizing data
+> Use nested or repeated columns
+> Use external data sources appropriately
+> Don't use it, in case you want a high query performance
+> Reduce data before using a JOIN
+> Do no treat WITH clauses as prepared statements
+> Avoid oversharding tables
 
 ### Internals of BigQuery
 
 - [Internals of Big Query](https://youtu.be/eduHi1inM4s)  
+> Column Oriented Storage
+> Big Query divides the data into smallest chunks and it processes in that way. 
 
 ### Advanced
 
@@ -42,7 +59,7 @@
 
 ### Homework
 
-* [Homework](../cohorts/2023/week_3_data_warehouse/homework.md)
+* [Homework](../homeworks/week_3)
 
 
 ## Community notes
