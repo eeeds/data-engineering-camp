@@ -17,3 +17,5 @@ set*
 *.prefectignore
 *cp*
 __pycache__
+*.ini
+/homeworks/week_3/*.ipynb
