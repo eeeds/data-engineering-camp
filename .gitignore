@@ -19,3 +19,6 @@ set*
 __pycache__
 *.ini
 /homeworks/week_3/*.ipynb
+*.crc
+*_SUCCESS
+.part-0000*
