@@ -43,10 +43,13 @@ Script to prepare the Dataset [download_data.sh](code/download_data.sh)
 
 :movie_camera: [Anatomy of a Spark Cluster](https://youtu.be/68CipcZt7ZA&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
 
+- Nowadays, they are on the same datacenter (spark cluster and data, executers now pull data from S3, GCS, etc.)
+
 :movie_camera: [GroupBy in Spark](https://youtu.be/9qrDsY_2COo&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
 
 :movie_camera: [Joins in Spark](https://youtu.be/lu7TrqAWuH4&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
 
+If the datasets are very small, each executor will get a copy of the dataset (one large table and one small table). On the other hand, for two big tables we use merge sort join (reshuffling).
 
 ### 5.5 RDDs
 
