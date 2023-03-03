@@ -55,7 +55,20 @@ If the datasets are very small, each executor will get a copy of the dataset (on
 
 Coming soon
 
+### 5.6 Running Spark in the Cloud
+-   5.6.1 Connecting to Google Cloud Storage
 
+Uploading data to GCS:
+```bash
+gsutil -m cp -r code/data/pq/ gs://dtc_data_lake_extreme-surge-375913/pq
+```
+Download the jar for connecting to GCS to any location
+```bash
+gsutil cp gs://hadoop-lib/gcs/gcs-connector-hadoop3-2.2.5.jar gcs-connector-hadoop3-2.2.5.jar
+```
+-   5.6.2 Creating a Local Spark Cluster
+-   5.6.3 Setting up a Dataproc Cluster
+-   5.6.4 Connecting Spark to BigQuery
 ### Homework
 
 
