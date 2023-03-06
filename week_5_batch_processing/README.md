@@ -66,9 +66,24 @@ Download the jar for connecting to GCS to any location
 ```bash
 gsutil cp gs://hadoop-lib/gcs/gcs-connector-hadoop3-2.2.5.jar gcs-connector-hadoop3-2.2.5.jar
 ```
--   5.6.2 Creating a Local Spark Cluster
+-   5.6.2 [Creating a Local Spark Cluster](https://spark.apache.org/docs/latest/spark-standalone.html)
+1. Go to your directory where spark is located.
+2. Run ./sbin/start-master.sh
+3. Follow the video...
 -   5.6.3 Setting up a Dataproc Cluster
 -   5.6.4 Connecting Spark to BigQuery
+
+gcloud dataproc jobs submit pyspark --cluster=de-zoomcamp-cluster --region=southamerica-east1 --jars=gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar gs://dtc_data_lake_extreme-surge-375913/code/06_spark_sql_big_query.py -- --input_green=gs://dtc_data_lake_extreme-surge-375913/pq/code/data/pq/green/2020/* --input_yellow=gs://dtc_data_lake_extreme-surge-375913/pq/code/data/pq/yellow/2020/* --output=trips_data_all.reports-2020
+
+gcloud dataproc jobs submit pyspark \
+    --cluster=de-zoomcamp-cluster \
+    --region=southamerica-east1 \
+    --jars=gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar \
+    gs://dtc_data_lake_extreme-surge-375913/code/06_spark_sql_bigquery.py \
+    -- \
+        --input_green=gs://dtc_data_lake_extreme-surge-375913/pq/code/data/pq/green/2020/*/ \
+        --input_yellow=gs://dtc_data_lake_extreme-surge-375913/pq/code/data/pq/yellow/2020/*/ \
+        --output=trips_data_all.reports-2020
 ### Homework
 
 
